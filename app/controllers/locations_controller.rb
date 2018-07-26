@@ -21,11 +21,14 @@ class LocationsController < ApplicationController
   end
 
   def create
+    render status: :not_implemented
   end
 
   def update
+    render status: :not_implemented
   end
 
-  def destroy
+  def destroy    
+    render status: :not_implemented
   end
 end
