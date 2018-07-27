@@ -1,23 +1,20 @@
 class LocationsController < ApplicationController
   def index
     @locations = []
-    
     Location.joins(:unicorns).each do |location|
-      @locations.push({
-        name: location.name,
-        unicorns: location.unicorns
-      })
+      @locations.push location_json(location)
     end
 
     render json: @locations
   end
-  
-  def show    
-    @location = Location.joins(:unicorns).find(params[:id])
-    render json: {
-      name: @location.name,
-      unicorns: @location.unicorns
-    }
+
+  def show
+    begin
+      @location = Location.joins(:unicorns).find(params[:id])
+      render json: location_json(@location)
+    rescue ActiveRecord::RecordNotFound
+      render json: { error: 'Location not found' }, status: :conflict
+    end
   end
 
   def create
@@ -28,7 +25,18 @@ class LocationsController < ApplicationController
     render status: :not_implemented
   end
 
-  def destroy    
+  def destroy
     render status: :not_implemented
   end
+
+  private
+
+  def location_json(location)
+    {
+      id: location.id,
+      name: location.name,
+      unicorns: location.unicorns
+    }
+  end
+
 end
