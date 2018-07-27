@@ -45,6 +45,17 @@ class UnicornsController < ApplicationController
     render status: :ok
   end
 
+  def changeLocation
+    @unicorn = Unicorn.find(params[:id])
+    @unicorn.update({location_id: params[:location_id]})
+
+    render json: {
+      name: @unicorn.name,
+      color: @unicorn.color,
+      location: @unicorn.location
+    }
+  end
+
   private
 
   def unicorn_params
