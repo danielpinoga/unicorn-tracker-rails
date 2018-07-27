@@ -31,6 +31,11 @@ class UnicornsController < ApplicationController
   end
 
   def update
+    @unicorn = Unicorn.find(params[:id])
+    @unicorn.update(unicorn_params)
+    @unicorn.save
+
+    render json: @unicorn
   end
 
   def destroy
