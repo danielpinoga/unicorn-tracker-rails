@@ -39,6 +39,10 @@ class UnicornsController < ApplicationController
   end
 
   def destroy
+    @unicorn = Unicorn.find(params[:id])
+    @unicorn.destroy
+
+    render status: :ok
   end
 
   private
