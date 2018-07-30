@@ -54,7 +54,7 @@ class UnicornsController < ApplicationController
     {
       id: unicorn.id,
       name: unicorn.name,
-      description: unicorn.color,
+      color: unicorn.color,
       location: unicorn.location
     }
   end
